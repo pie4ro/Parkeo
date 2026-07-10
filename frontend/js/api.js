@@ -1,5 +1,5 @@
 // Ajusta esta URL cuando despliegues el backend (ver README para producción).
-const API_BASE = window.PARKING_API_BASE || 'http://localhost:4000/api';
+const API_BASE = window.PARKING_API_BASE || 'https://iot-95oj.onrender.com/api';
 
 function getToken() {
   return localStorage.getItem('parking_token');
