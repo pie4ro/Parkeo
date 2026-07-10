@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Smart Parking</title>
+<script src="js/api.js"></script>
+</head>
+<body>
+<script>
+  const user = getUser();
+  if (user && getToken()) {
+    window.location.href = user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+  } else {
+    window.location.href = 'login.html';
+  }
+</script>
+</body>
+</html>

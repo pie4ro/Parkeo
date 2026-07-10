@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Parking · Mi panel</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><span class="brand-mark">SP</span> Smart Parking</div>
+    <div class="user-chip">
+      <span>Hola, <strong id="userName">—</strong></span>
+      <a href="simulator.html" class="btn-secondary btn-sm" style="text-decoration:none;">Simulador IoT</a>
+      <button class="btn-secondary btn-sm" id="passwordBtn">Cambiar contraseña</button>
+      <button class="btn-secondary btn-sm" id="logoutBtn">Salir</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="globalAlert" class="hidden"></div>
+
+    <div class="grid-row cols-2">
+      <div class="card">
+        <div style="padding: 1.4rem 1.4rem 0;">
+          <div class="section-title">Mapa del estacionamiento <span class="tag">tiempo real</span></div>
+        </div>
+        <div class="parking-lot" id="parkingLot">
+          <div class="empty-state">Cargando estacionamientos…</div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="led-dot" style="color:var(--libre)"></span> Libre</div>
+          <div class="legend-item"><span class="led-dot" style="color:var(--ocupado)"></span> Ocupado</div>
+          <div class="legend-item"><span class="led-dot" style="color:var(--reservado)"></span> Reservado</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 1.4rem;">
+        <div class="section-title">Mi reserva</div>
+        <div id="reservationPanel">
+          <div class="empty-state">
+            <div class="icon">🅿️</div>
+            No tienes una reserva activa. Selecciona un estacionamiento libre en el mapa.
+          </div>
+        </div>
+
+        <div style="margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid var(--border);">
+          <div class="section-title" style="font-size: 0.95rem;">Mi tarjeta RFID</div>
+          <p style="font-family: var(--font-mono); font-size: 0.95rem; color: var(--brand-dark);" id="rfidCode">—</p>
+          <p style="font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.3rem;">
+            Este identificador simula tu tarjeta física para el acceso en el ESP32.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="padding: 1.4rem;">
+      <div class="section-title">Historial de reservas <span class="tag" id="historyCount">0</span></div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Estacionamiento</th>
+              <th>Estado</th>
+              <th>Reservado</th>
+              <th>Confirmado</th>
+              <th>Finalizado</th>
+            </tr>
+          </thead>
+          <tbody id="historyBody">
+            <tr><td colspan="5" style="color: var(--ink-soft);">Cargando historial…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <p class="footer-note">Simulación IoT · ESP32 + RFID + sensores de presencia · Estado sincronizado cada 5 s</p>
+  </div>
+
+  <div class="modal-backdrop hidden" id="passwordModal">
+    <div class="card modal">
+      <h3>Cambiar contraseña</h3>
+      <div id="modalAlert" class="hidden"></div>
+      <form id="passwordForm">
+        <div class="field">
+          <label for="currentPassword">Contraseña actual</label>
+          <input type="password" id="currentPassword" required />
+        </div>
+        <div class="field">
+          <label for="newPassword">Nueva contraseña</label>
+          <input type="password" id="newPassword" required minlength="6" />
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="cancelModalBtn">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

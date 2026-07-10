@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Parking · Panel de administración</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><span class="brand-mark">SP</span> Smart Parking <span class="badge-role">admin</span></div>
+    <div class="user-chip">
+      <span>Hola, <strong id="userName">—</strong></span>
+      <button class="btn-secondary btn-sm" id="logoutBtn">Salir</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="globalAlert" class="hidden"></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="spots">Estacionamientos</button>
+      <button class="tab-btn" data-tab="users">Usuarios</button>
+      <button class="tab-btn" data-tab="reservations">Reservas</button>
+    </div>
+
+    <!-- ESTACIONAMIENTOS -->
+    <div class="tab-panel active" id="tab-spots">
+      <div class="card" style="padding: 1.4rem;">
+        <div class="toolbar">
+          <div class="section-title" style="margin-bottom:0;">Gestión de estacionamientos</div>
+          <form id="addSpotForm" style="display:flex; gap:0.6rem;">
+            <input type="text" id="newSpotCode" placeholder="Código, ej. C1" style="width:160px;" required />
+            <button class="btn-primary btn-sm" type="submit">Agregar</button>
+          </form>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>Código</th><th>Estado</th><th>Cambiar estado</th><th></th></tr>
+            </thead>
+            <tbody id="spotsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- USUARIOS -->
+    <div class="tab-panel" id="tab-users">
+      <div class="card" style="padding: 1.4rem;">
+        <div class="section-title">Gestión de usuarios</div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>Nombre</th><th>Correo</th><th>Rol</th><th class="mono">RFID</th><th>Acciones</th></tr>
+            </thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESERVAS -->
+    <div class="tab-panel" id="tab-reservations">
+      <div class="card" style="padding: 1.4rem;">
+        <div class="section-title">Historial global de reservas</div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>Usuario</th><th>Estacionamiento</th><th>Estado</th><th>Reservado</th><th>Confirmado</th><th>Finalizado</th></tr>
+            </thead>
+            <tbody id="reservationsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <p class="footer-note">Panel de administración · Gestión de usuarios, estacionamientos y reservas</p>
+  </div>
+
+  <!-- Modal genérico de confirmación / edición -->
+  <div class="modal-backdrop hidden" id="genericModal">
+    <div class="card modal" id="genericModalBody"></div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

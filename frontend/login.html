@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Parking · Iniciar sesión</title>
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="card auth-card">
+      <div class="brand"><span class="brand-mark">SP</span> Smart Parking</div>
+      <h1>Bienvenido de vuelta</h1>
+      <p class="auth-sub">Inicia sesión para ver el estado del estacionamiento y tus reservas.</p>
+
+      <div id="alertBox" class="hidden"></div>
+
+      <form id="loginForm">
+        <div class="field">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" required autocomplete="email" placeholder="tucorreo@ejemplo.com" />
+        </div>
+        <div class="field">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" required autocomplete="current-password" placeholder="••••••••" />
+        </div>
+        <button type="submit" class="btn-primary btn-block" id="submitBtn">Ingresar</button>
+      </form>
+
+      <p class="auth-footer">
+        ¿Olvidaste tu contraseña? <a href="forgot-password.html">Recupérala aquí</a><br />
+        ¿No tienes cuenta? <a href="register.html">Regístrate</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script>
+    // Si ya hay sesión, redirige directo a su panel.
+    (function () {
+      const user = getUser();
+      if (user && getToken()) {
+        window.location.href = user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+      }
+    })();
+
+    const form = document.getElementById('loginForm');
+    const alertBox = document.getElementById('alertBox');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert(alertBox);
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Ingresando…';
+      try {
+        const data = await api('/auth/login', {
+          method: 'POST',
+          auth: false,
+          body: {
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+          },
+        });
+        setToken(data.token);
+        setUser(data.user);
+        window.location.href = data.user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+      } catch (err) {
+        showAlert(alertBox, err.message);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Ingresar';
+      }
+    });
+  </script>
+</body>
+</html>
