@@ -4,6 +4,11 @@ Sistema de gestión de un estacionamiento inteligente simulado con dispositivos 
 (ESP32, sensores, LEDs, tarjetas RFID) y una aplicación web para reservar y
 administrar los espacios.
 
+# Este proyecto està supervisado y visualizado por el equipo de IoT
+- Zumaeta Rodriguez, Jeremy
+- Valeriano Benitez, Juan
+- Ramirez Castillo, Lizeth
+
 ## Estructura del proyecto
 
 ```
