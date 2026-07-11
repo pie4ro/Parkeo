@@ -1,0 +1,1 @@
+window.PARKING_API_BASE = "https://iot-95oj.onrender.com/api";
